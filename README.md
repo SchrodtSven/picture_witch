@@ -1,2 +1,2 @@
 # picture_witch
-Image processing experients in Python and PIL
+Image processing stuff in Python with PIL
