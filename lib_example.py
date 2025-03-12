@@ -5,31 +5,28 @@ import numpy as np
 
 
 coer = Coordinator()
-
+print(str(coer))
 
 print(coer.center, coer.br)
-exit()
+#exit()
 
 worker = ImgWorker()
 # test_image_rgb.webp
-first = Image.open('test_image_rgb.webp') # size (2048, 1536)
-# first.show()
-# cropped = worker.crop(first, 994, 738, 1054, 798)
-# cropped.show()
+first = Image.open('sven.jpg') 
+print(type(first.size), first.size)
+
+exit()
+""" inv = worker.invert(first)
+inv.show()
+
+exit() """
+
+
+cropped = worker.crop(first, 70, 56, 123, 325)
+cropped.show()
 print(type(first.size), first.size)
 
 
 
 
 # 738, 994 (LT)
-# 798, 1054 (BR)
-#gray = worker.grayscale(first)
-#gray.show()
-
-
-
-#exit()
-# flipped = worker.roll(first, 192, 0)
-# flipped.show()
-#second_sep = worker.sepia(first, 0.55)
-#second_sep.show()

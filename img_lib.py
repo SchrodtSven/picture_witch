@@ -43,9 +43,10 @@ class ImgWorker:
 
     
 
-    def sepia(self, img: Image.Image, intensity: int = 0.6) -> Image.Image:
+    def sepia(self, img: Image.Image, intensity: float = 0.6) -> Image.Image:
         # SEE: https://drafts.fxtf.org/filter-effects/#sepiaEquivalent
         # HINT: currently an RGB image is prereq 4 this
+        # intensity (0 ..1)
         tmp = np.array(img)
 
         # Transforming each pixel's bands (r,g,b)
@@ -80,19 +81,23 @@ class ImgWorker:
         return Image.fromarray(np.rot90(tmp, times, axes).astype("uint8"))
     
     def roll(self, img: Image.Image, shift_by:int=1, axes=None) -> Image.Image:
-        """ Rotating image x times by 90°  """
-
+        """ Rolling image content by shift_by pixeles at axis """     
         tmp = np.array(img)
-        return Image.fromarray(np.roll(tmp, shift_by, axes).astype("uint8"))
-       
+        return Image.fromarray(np.roll(tmp, shift_by, axes).astype("uint8"))   
 
-    def flip(self, img: Image.Image, mode=FLP_HORZ):
+    def flip(self, img: Image.Image, mode=FLP_HORZ) -> Image.Image:
+        # TODO: check 
         tmp = np.array(img)
         return Image.fromarray(np.flip(tmp, mode).astype("uint8"))
 
-    def crop(self, img: Image.Image, x1:int, y1:int, x2:int, y2:int):
+    def crop(self, img: Image.Image, x1:int, y1:int, x2:int, y2:int) -> Image.Image:
         tmp = np.array(img)
         return Image.fromarray((tmp[y1:x1, y2:x2]).astype("uint8"))
+    
+    def invert(self, img: Image.Image) -> Image.Image:
+        tmp = np.array(img)
+        return Image.fromarray((255 - tmp).astype("uint8"))
+    
     
 
 class Coordinator:
@@ -117,3 +122,7 @@ class Coordinator:
         self.br = (self.x, self.y)
         
         self.center = (self.dim[0] //2, self.dim[1] //2)
+    
+    def __str__(self) -> str:
+        
+        return ' '.join([a for a in dir(self) if not a.startswith('__')])
